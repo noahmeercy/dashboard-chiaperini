@@ -58,7 +58,7 @@ function Home() {
             <button type="submit" className='login'>Entrar</button>
 
             <div className='register-link'>
-                <p>Não tem uma conta? <a href="#">Cadastre-se</a></p>
+                <p>Não tem uma conta? <Link to="/Cadastro">Cadastre-se</Link></p>
             </div>
         </main>
 

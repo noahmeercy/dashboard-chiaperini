@@ -1,8 +1,10 @@
 import './cadastro.css'
 import logo from '../../assets/logo.png';
 import { useRef } from 'react';
-import { Link } from 'react-router-dom'; 
+// import { Link } from 'react-router-dom'; 
 import api from '../../services/api'
+
+
 
 function Cadastro() {
     const nameRef = useRef()
@@ -49,8 +51,6 @@ function Cadastro() {
                 </div>
                 <button type='submit' className='cadastro'>Cadastrar</button>
             </form>
-
-
         </main>
 
     )
