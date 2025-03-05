@@ -1,28 +1,34 @@
 // import { Title } from "./style"
-import './home.css'
+import './login.css'
 import logo from '../../assets/logo.png';
 import { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 
 
-function Home() {
+function Login() {
 
     const emailRef = useRef()
     const passwordRef = useRef()
+    const navigate = useNavigate()
 
     async function handleSubmit(event) {
         event.preventDefault()
 
         try {
-            const data = await api.post('/login', {
+           const { data:token } = await api.post('/login', {
                 email: emailRef.current.value,
                 password: passwordRef.current.value
 
             })
 
-            console.log(data)
+
+            localStorage.setItem('token', token)
+            console.log(token)
             alert("Login Ok")
+
+            navigate('/listar-usuarios')
+
         } catch (err) {
             alert("Senha ou Email incorretos")
         }
@@ -37,7 +43,7 @@ function Home() {
             <div className="title-login">
                 <h2>Login</h2>
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className='input-box'>
                     <input ref={emailRef} placeholder='Usuário' type='email' />
                     <i className='bx bxs-user' />
@@ -46,23 +52,23 @@ function Home() {
                     <input ref={passwordRef} placeholder='Senha' type='password' />
                     <i className='bx bxs-lock-alt' />
                 </div>
+                <button type="submit" className='login'>Entrar</button>
             </form>
 
-            <div className='remember-forgot'>
+            {/* <div className='remember-forgot'>
                 <label>
                     <input type='checkbox' />
                     Lembrar Login
                 </label>
                 <a href='#'>REDEFINIR SENHA</a>
-            </div>
-            <button type="submit" className='login'>Entrar</button>
+            </div> */}
 
-            <div className='register-link'>
+            {/* <div className='register-link'>
                 <p>Não tem uma conta? <Link to="/Cadastro">Cadastre-se</Link></p>
-            </div>
+            </div> */}
         </main>
 
     )
 }
 
-export default Home
+export default Login
