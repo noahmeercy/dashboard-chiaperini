@@ -16,7 +16,7 @@ function Login() {
         event.preventDefault()
 
         try {
-           const { data:token } = await api.post('/login', {
+            const { data: token } = await api.post('/login', {
                 email: emailRef.current.value,
                 password: passwordRef.current.value
 
@@ -55,17 +55,19 @@ function Login() {
                 <button type="submit" className='login'>Entrar</button>
             </form>
 
+
             {/* <div className='remember-forgot'>
                 <label>
                     <input type='checkbox' />
                     Lembrar Login
                 </label>
                 <a href='#'>REDEFINIR SENHA</a>
-            </div> */}
+            </div>
 
-            {/* <div className='register-link'>
+            <div className='register-link'>
                 <p>Não tem uma conta? <Link to="/Cadastro">Cadastre-se</Link></p>
             </div> */}
+
         </main>
 
     )
