@@ -1,4 +1,4 @@
-body {
+.wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,7 +9,12 @@ body {
     background-position: center;
 }
 
+
 .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 420px;
     background-color: transparent;
     border: 2px solid rgba(255, 255, 255, .2);

@@ -36,7 +36,8 @@ function Login() {
 
     return (
 
-        <main className='container'>
+        <main className='wrapper'>
+            <div className='container'>
             <div className='logo'>
                 <img src={logo} alt='logo_chiaperini' />
             </div>
@@ -54,6 +55,7 @@ function Login() {
                 </div>
                 <button type="submit" className='login'>Entrar</button>
             </form>
+            </div>
 
 
             {/* <div className='remember-forgot'>
