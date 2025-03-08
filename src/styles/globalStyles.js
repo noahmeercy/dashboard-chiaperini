@@ -9,5 +9,6 @@ const MyGlobalStyles = createGlobalStyle`
         font-family: "Poppins", sans-serif;
     }
 
+
 `
 export default MyGlobalStyles
