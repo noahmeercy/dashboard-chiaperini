@@ -3,6 +3,7 @@ import Login from './containers/Login/login'
 import Cadastro from './containers/Cadastro/cadastro'
 import ListarUsuarios from "./containers/Lista/lista"
 import DashboardHome from "./containers/DashboardHome/dashboardHome"
+import AlmoxarifadoHome from "./containers/AlmoxarifadoHome/almoxarifadohome"
 function App() {
 
     return (
@@ -12,6 +13,7 @@ function App() {
                 <Route path="/Cadastro" element={<Cadastro/>} />
                 <Route path="/listar-usuarios" element={<ListarUsuarios/>} />
                 <Route path="/dashboard-home" element={<DashboardHome/>} />
+                <Route path="/almoxarifado-home" element={<AlmoxarifadoHome/>}/>
             </Routes>
         </BrowserRouter>
     )
