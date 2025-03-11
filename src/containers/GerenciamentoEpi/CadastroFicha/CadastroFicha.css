@@ -1,3 +1,10 @@
-.TESTE {
-    color: blueviolet;
+.container-ficha {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    /* width: 420px; */
+    background-color: black;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
 }
