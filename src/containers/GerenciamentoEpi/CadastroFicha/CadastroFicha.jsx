@@ -1,7 +1,22 @@
 import "./CadastroFicha.css"
+import { useState } from 'react'
 
 
 function CadastroFicha() {
+
+    const [nome, setNome] = useState("");
+    const [registro, setRegistro] = useState("");
+    const [cargo, setCargo] = useState("");
+    const [setor, setSetor] = useState("");
+    const [camisa, setCamisa] = useState("");
+    const [calca, setCalca] = useState ("");
+    const [calcado, setCalcado] = useState("");
+    const [admissao, setAdmissao] = useState("");
+
+    
+
+
+
     return (
 
         <div className="container-ficha">
