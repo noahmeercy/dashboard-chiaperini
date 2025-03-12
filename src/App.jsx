@@ -20,7 +20,6 @@ function App() {
                 <Route path="/almoxarifado-home" element={<AlmoxarifadoHome/>} />
                 <Route path="/gerenciamento-epi" element={<GerenciamentoEpi/>} />
                 <Route path="/cadastro-ficha" element={<CadastroFicha/>} />
-
             </Routes>
         </BrowserRouter>
     )
