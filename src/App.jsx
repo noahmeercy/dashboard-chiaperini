@@ -6,6 +6,8 @@ import DashboardHome from "./containers/DashboardHome/dashboardHome"
 import AlmoxarifadoHome from "./containers/AlmoxarifadoHome/almoxarifadohome"
 import GerenciamentoEpi from "./containers/GerenciamentoEpi/gerenciamentoepi"
 import CadastroFicha from "./containers/GerenciamentoEpi/CadastroFicha/CadastroFicha"
+import CadastroEpi from "./containers/GerenciamentoEpi/CadastroEpi/CadastroEpi"
+
 
 
 function App() {
@@ -20,6 +22,7 @@ function App() {
                 <Route path="/almoxarifado-home" element={<AlmoxarifadoHome/>} />
                 <Route path="/gerenciamento-epi" element={<GerenciamentoEpi/>} />
                 <Route path="/cadastro-ficha" element={<CadastroFicha/>} />
+                <Route path="/cadastro-epi" element={<CadastroEpi/>} />
             </Routes>
         </BrowserRouter>
     )
