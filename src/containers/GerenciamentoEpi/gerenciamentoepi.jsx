@@ -4,14 +4,21 @@ import { Link } from "react-router-dom"
 
 
 
-function GerenciamentoEpi () {
+function GerenciamentoEpi() {
     return (
         <main className="container-epi">
             <Link to="/cadastro-ficha">
-            <div className="button-epi">
-                <p>CADASTRAR FICHA</p>
-            </div>
+                <div className="button-epi">
+                    <p>CADASTRAR FICHA</p>
+                </div>
             </Link>
+
+            <Link to="/cadastro-epi">
+                <div className="button-epi">
+                    <p>CADASTRAR EPI</p>
+                </div>
+            </Link>
+
         </main>
     )
 }
