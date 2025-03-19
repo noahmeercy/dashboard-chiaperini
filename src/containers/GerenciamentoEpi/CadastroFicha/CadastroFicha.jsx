@@ -31,7 +31,7 @@ function CadastroFicha() {
 
         try {
             const response = await api.post('/private/cadastro-ficha', funcionario)
-            // console.log('Funcionario cadastrado:', response.data) -- depuração (debug)
+            console.log('Funcionario cadastrado:', response.data) 
             alert('Funcionário cadastrado com sucesso!')
 
             // Resetando o formulário após cadastro
