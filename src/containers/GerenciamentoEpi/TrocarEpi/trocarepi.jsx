@@ -7,6 +7,7 @@ function trocarEpi() {
   const [codigo, setCodigo] = useState("");
   const [motivo, setMotivo] = useState("");
   const [dataTroca, setDataTroca] = useState("");
+  const [quantidade, setQuantidade] = useState("");
 
   async function handleSubmit(event) {
     event.preventDefault(); // Previne o recarregamento da página
@@ -16,6 +17,7 @@ function trocarEpi() {
       codigo,
       motivo,
       dataTroca,
+      quantidade,
     };
 
     try {
@@ -28,6 +30,7 @@ function trocarEpi() {
       setCodigo("");
       setMotivo("");
       setDataTroca("");
+      setQuantidade("");
 
     } catch (error) {
       console.error("Erro ao trocar EPI", error);
@@ -62,6 +65,14 @@ function trocarEpi() {
           type="text"
           value={motivo}
           onChange={(e) => setMotivo(e.target.value)}
+          />
+        </div>
+
+        <div className="input-box">
+          <input placeholder="Quantidade"
+          type="number"
+          value={quantidade}
+          onChange={(e) => setQuantidade(e.target.value)}
           />
         </div>
 
