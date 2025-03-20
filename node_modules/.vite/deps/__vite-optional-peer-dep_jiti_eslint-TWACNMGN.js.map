@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["optional-peer-dep:__vite-optional-peer-dep:jiti:eslint"],
+  "sourcesContent": ["throw new Error(`Could not resolve \"jiti\" imported by \"eslint\". Is it installed?`)"],
+  "mappings": ";;;;;AAAA;AAAA;AAAA,UAAM,IAAI,MAAM,iEAAiE;AAAA;AAAA;",
+  "names": []
+}
