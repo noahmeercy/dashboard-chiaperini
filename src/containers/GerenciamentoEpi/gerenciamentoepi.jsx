@@ -19,6 +19,13 @@ function GerenciamentoEpi() {
                 </div>
             </Link>
 
+            <Link to="/trocar-epi">
+                <div className="button-epi">
+                    <p>TROCAR EPI</p>
+                </div>
+            </Link>
+
+
         </main>
     )
 }
