@@ -1,6 +1,7 @@
 import "./trocarepi.css";
 import api from "../../../services/api";
 import { useState } from "react";
+import TabelaTroca from "../../../componentes/TabelaTroca";
 
 function trocarEpi() {
   const [registro, setRegistro] = useState("");
@@ -8,6 +9,7 @@ function trocarEpi() {
   const [motivo, setMotivo] = useState("");
   const [dataTroca, setDataTroca] = useState("");
   const [quantidade, setQuantidade] = useState("");
+  const [refreshSignal, setRefreshSignal] = useState(0); // Sinal para atualizar a tabela
 
   async function handleSubmit(event) {
     event.preventDefault(); // Previne o recarregamento da página
@@ -32,6 +34,9 @@ function trocarEpi() {
       setDataTroca("");
       setQuantidade("");
 
+
+      // Atualiza o refreshSignal para forçar a recarga da tabela
+      setRefreshSignal((prev) => prev + 1);
     } catch (error) {
       console.error("Erro ao trocar EPI", error);
       alert(
@@ -86,6 +91,9 @@ function trocarEpi() {
 
         <button type="submit">Registrar Troca</button>
       </form>
+
+      <TabelaTroca refreshSignal={refreshSignal} />
+    
     </div>
   );
 }
