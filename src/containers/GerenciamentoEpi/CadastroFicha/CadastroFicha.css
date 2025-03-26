@@ -1,0 +1,10 @@
+.container-ficha {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    /* width: 420px; */
+    background-color: rgb(0, 0, 0);
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+}

@@ -7,6 +7,7 @@ function ListarUsuarios() {
     const [allUsers, setAllUsers] = useState([])
 
     useEffect(() => {
+        
         async function loadUsers() {
 
             const token = localStorage.getItem('token')

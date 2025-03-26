@@ -27,7 +27,7 @@ function Login() {
             console.log(token)
             alert("Login Ok")
 
-            navigate('/listar-usuarios')
+            navigate('/dashboard-home')
 
         } catch (err) {
             alert("Senha ou Email incorretos")

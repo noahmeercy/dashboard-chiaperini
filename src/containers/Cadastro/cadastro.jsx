@@ -1,7 +1,6 @@
 import './cadastro.css'
-import logo from '../../assets/logo.png';
-import { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import logo from '../../assets/logo.png'
+import { useRef } from 'react'
 import api from '../../services/api'
 
 
