@@ -26,7 +26,7 @@ function App() {
                 <Route path="/cadastro-ficha" element={<CadastroFicha/>} />
                 <Route path="/cadastro-epi" element={<CadastroEpi/>} />
                 <Route path="/trocar-epi" element={<TrocarEpi/>} />
-                <Route path="/tabela-troca" element={<TabelaTroca/>} />
+                <Route path="/tabela-troca" element={<TabelaTroca exibirFiltros={true}/>} />
             </Routes>
         </BrowserRouter>
     )
