@@ -207,6 +207,8 @@ function calculatePageHeight(pages, margins) {
 			return item.item.getHeight();
 		} else if (item.item._height) {
 			return item.item._height;
+		} else if (item.type === 'vector') {
+			return item.item.y1 > item.item.y2 ? item.item.y1 : item.item.y2;
 		} else {
 			// TODO: add support for next item types
 			return 0;
@@ -214,7 +216,7 @@ function calculatePageHeight(pages, margins) {
 	}
 
 	function getBottomPosition(item) {
-		var top = item.item.y;
+		var top = item.item.y || 0;
 		var height = getItemHeight(item);
 		return top + height;
 	}
@@ -406,6 +408,25 @@ function renderPages(pages, fontProvider, pdfKitDoc, progressCallback) {
 	}
 }
 
+/**
+ * Shift the "y" height of the text baseline up or down (superscript or subscript,
+ * respectively). The exact shift can / should be changed according to standard
+ * conventions.
+ *
+ * @param {number} y
+ * @param {any} inline
+ */
+function offsetText(y, inline) {
+	var newY = y;
+	if (inline.sup) {
+		newY -= inline.fontSize * 0.75;
+	}
+	if (inline.sub) {
+		newY += inline.fontSize * 0.35;
+	}
+	return newY;
+}
+
 function renderLine(line, x, y, pdfKitDoc) {
 	function preparePageNodeRefLine(_pageNodeRef, inline) {
 		var newWidth;
@@ -481,18 +502,20 @@ function renderLine(line, x, y, pdfKitDoc) {
 
 		pdfKitDoc._font = inline.font;
 		pdfKitDoc.fontSize(inline.fontSize);
-		pdfKitDoc.text(inline.text, x + inline.x, y + shiftToBaseline, options);
+
+		var shiftedY = offsetText(y + shiftToBaseline, inline);
+		pdfKitDoc.text(inline.text, x + inline.x, shiftedY, options);
 
 		if (inline.linkToPage) {
 			var _ref = pdfKitDoc.ref({ Type: 'Action', S: 'GoTo', D: [inline.linkToPage, 0, 0] }).end();
-			pdfKitDoc.annotate(x + inline.x, y + shiftToBaseline, inline.width, inline.height, {
+			pdfKitDoc.annotate(x + inline.x, shiftedY, inline.width, inline.height, {
 				Subtype: 'Link',
 				Dest: [inline.linkToPage - 1, 'XYZ', null, null, null]
 			});
 		}
 
 	}
-
+	// Decorations won't draw correctly for superscript
 	textDecorator.drawDecorations(line, x, y, pdfKitDoc);
 }
 
@@ -607,7 +630,18 @@ function renderVector(vector, pdfKitDoc) {
 function renderImage(image, x, y, pdfKitDoc) {
 	var opacity = isNumber(image.opacity) ? image.opacity : 1;
 	pdfKitDoc.opacity(opacity);
-	pdfKitDoc.image(image.image, image.x, image.y, { width: image._width, height: image._height });
+	if (image.cover) {
+		var align = image.cover.align || 'center';
+		var valign = image.cover.valign || 'center';
+		var width = image.cover.width ? image.cover.width : image.width;
+		var height = image.cover.height ? image.cover.height : image.height;
+		pdfKitDoc.save();
+		pdfKitDoc.rect(image.x, image.y, width, height).clip();
+		pdfKitDoc.image(image.image, image.x, image.y, { cover: [width, height], align: align, valign: valign });
+		pdfKitDoc.restore();
+	} else {
+		pdfKitDoc.image(image.image, image.x, image.y, { width: image._width, height: image._height });
+	}
 	if (image.link) {
 		pdfKitDoc.link(image.x, image.y, image._width, image._height, image.link);
 	}
