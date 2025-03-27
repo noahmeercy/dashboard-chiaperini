@@ -14,7 +14,7 @@ function AlmoxarifadoHome() {
                 </div>
                 <Link to={"/gerenciamento-epi"}>
                     <div className='card blue'>
-                        <h3 className='tip'>TESTE</h3>
+                        <h3 className='tip'>EPI</h3>
                         <p className="second-text">GERENCIAMENTO DE EPI</p>
                     </div>
                 </Link>
