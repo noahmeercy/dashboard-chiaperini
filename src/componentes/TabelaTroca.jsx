@@ -2,21 +2,23 @@ import { useEffect, useState } from "react";
 import Trash from "../assets/trash-solid.svg";
 import api from "../services/api";
 
-function TabelaTroca({  refreshSignal, exibirFiltros = true, modoFiltro = "tabela"  }) {
+function TabelaTroca({
+  refreshSignal,
+  exibirFiltros = true,
+  modoFiltro = "tabela",
+}) {
   const [allTabela, setTabela] = useState([]);
   const [dataInicio, setDataInicio] = useState("");
   const [dataFim, setDataFim] = useState("");
   const [filtrando, setFiltrando] = useState(false);
 
-  // 🔄 Carrega as trocas sempre que `refreshSignal` mudar
+  //  Carrega as trocas sempre que `refreshSignal` mudar
   useEffect(() => {
-    if (!filtrando) {
-      loadTrocas(); //  Se não estiver filtrando, carrega as trocas do dia
-    }
+    console.log("🚀 Atualizando tabela com refreshSignal:", refreshSignal);
+    loadTrocas();
   }, [refreshSignal]);
-  
 
-  // 🔍 Busca as trocas com base nos filtros ou na data de hoje
+  //  Busca as trocas com base nos filtros ou na data de hoje
   async function loadTrocas() {
     try {
       const params = {};
@@ -39,7 +41,7 @@ function TabelaTroca({  refreshSignal, exibirFiltros = true, modoFiltro = "tabel
     }
   }
 
-  // 🚮 Função para Deletar as Trocas Individualmente
+  //  Função para Deletar as Trocas Individualmente
   async function deleteTrocas(id) {
     const confirmar = window.confirm(
       "Tem certeza que deseja excluir esta troca?"
@@ -48,13 +50,13 @@ function TabelaTroca({  refreshSignal, exibirFiltros = true, modoFiltro = "tabel
 
     try {
       await api.delete(`/tabela-troca/${id}`);
-
-      // 🔹 Atualiza a lista removendo localmente antes de buscar no backend
+      //  Atualiza a lista removendo localmente antes de buscar no backend
       setTabela((prevTabela) => prevTabela.filter((troca) => troca.id !== id));
-
-      // 🔄 Recarrega a tabela para garantir que os dados estão atualizados
-      setFiltrando(false);
-      loadTrocas();
+      //  Recarrega a tabela para garantir que os dados estão atualizados
+      setTimeout(() => {
+        setFiltrando(false);
+        loadTrocas();
+      }, 100);
     } catch (error) {
       console.error("Erro ao excluir a troca:", error);
       alert("Falha ao excluir a troca. Tente novamente!");
@@ -98,38 +100,55 @@ function TabelaTroca({  refreshSignal, exibirFiltros = true, modoFiltro = "tabel
         </>
       )}
 
-      {/* 📜 Exibição das trocas */}
-      <ul>
-        {allTabela.length > 0 ? (
-          allTabela.map((user) => (
-            <li key={user.id}>
-              <p>Nome: {user.funcionario?.nome || "Nome não disponível"}</p>
-              <p>Motivo: {user.motivo}</p>
-              <p>Descrição: {user.epi?.descricao}</p>
-              <p>CA: {user.epi?.ca}</p>
-              <p>Quantidade: {user.quantidade}</p>
-              <p>Registro: {user.funcionario?.registro}</p>
-              <p>Setor: {user.funcionario?.setor}</p>
-              <p>
-                Data da Troca:{" "}
-                {new Date(user.dataTroca).toLocaleString("pt-BR", {
-                  day: "2-digit",
-                  month: "2-digit",
-                  year: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  second: "2-digit",
-                })}
-              </p>
-              <button onClick={() => deleteTrocas(user.id)}>
-                <img width="30px" src={Trash} alt="Ícone de Lixeira" />
-              </button>
-            </li>
-          ))
-        ) : (
-          <p>Nenhuma troca registrada.</p>
-        )}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>REGISTRO</th>
+            <th>NOME</th>
+            <th>DESCRIÇÃO</th>
+            <th>CA</th>
+            <th>QUANTIDADE</th>
+            <th>MOTIVO</th>
+            <th>SETOR</th>
+            <th>DATA/HORA</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {allTabela.length > 0 ? (
+            allTabela.map((user) => (
+              <tr key={user.id}>
+                <td>{user.funcionario?.registro}</td>
+                <td>{user.funcionario?.nome || "Nome não disponível"}</td>
+                <td>{user.epi?.descricao}</td>
+                <td>{user.epi?.ca}</td>
+                <td>{user.quantidade}</td>
+                <td>{user.motivo}</td>
+                <td>{user.funcionario?.setor}</td>
+                <td>
+                  {new Date(user.dataTroca).toLocaleString("pt-BR", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                  })}
+                </td>
+                <td>
+                  <button onClick={() => deleteTrocas(user.id)}>
+                    <img width="30px" src={Trash} alt="Ícone de Lixeira" />
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="9">Nenhuma troca registrada.</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 }
