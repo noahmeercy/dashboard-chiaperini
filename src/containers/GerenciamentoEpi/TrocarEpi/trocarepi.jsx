@@ -9,7 +9,6 @@ function trocarEpi() {
   const [motivo, setMotivo] = useState("");
   const [dataTroca, setDataTroca] = useState("");
   const [quantidade, setQuantidade] = useState("");
-  const [trocasHoje, setTrocaHoje] = useState("");
   const [refreshSignal, setRefreshSignal] = useState(0); // Sinal para atualizar a tabela
 
   // 🗓 Obtendo a data de hoje no formato YYYY-MM-DD
@@ -22,12 +21,12 @@ function trocarEpi() {
         const response = await api.get("/filtro-troca", {
           params: { dataInicio: hoje, dataFim: hoje },
         });
-        setTrocasHoje(response.data);
+        fetchTrocasHoje(response.data);
       } catch (error) {
         console.error("Erro ao buscar trocas de hoje:", error);
       }
     }
-
+    
     fetchTrocasHoje();
   }, [refreshSignal]); // Atualiza quando uma nova troca é registrada
 
@@ -116,7 +115,7 @@ function trocarEpi() {
         <button type="submit">Registrar Troca</button>
       </form>
 
-      <TabelaTroca trocas={trocasHoje} exibirFiltros={false} modoFiltro="telaPrincipal" />
+      <TabelaTroca refreshSignal={refreshSignal} exibirFiltros={false} modoFiltro="telaPrincipal" />
     </div>
   );
 }
