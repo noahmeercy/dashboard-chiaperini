@@ -64,11 +64,7 @@ function TabelaTroca({
   }
 
   return (
-
-
-
-    
-    <div class="bg-blue-500 text-white text-3xl ">
+    <div>
       <h2>Lista de Trocas de EPI</h2>
 
       {/* 🔹 Inputs para selecionar datas */}
@@ -77,6 +73,7 @@ function TabelaTroca({
           <label>
             Data Início:
             <input
+              className="tw-mr-2 tw-bg-gray-200 tw-p-2 tw-rounded"
               type="date"
               value={dataInicio}
               onChange={(e) => setDataInicio(e.target.value)}
@@ -107,14 +104,30 @@ function TabelaTroca({
       <table>
         <thead>
           <tr>
-            <th>REGISTRO</th>
-            <th>NOME</th>
-            <th>DESCRIÇÃO</th>
-            <th>CA</th>
-            <th>QUANTIDADE</th>
-            <th>MOTIVO</th>
-            <th>SETOR</th>
-            <th>DATA/HORA</th>
+            <th className="tw-py-3 tw-px-4 tw-text-left tw-text-gray-700 tw-font-bold tw-uppercase">
+              registro
+            </th>
+            <th className="tw-py-3 tw-px-4 tw-text-left tw-text-gray-700 tw-font-bold tw-uppercase">
+              nome
+            </th>
+            <th className="tw-py-3 tw-px-4 tw-text-left tw-text-gray-700 tw-font-bold tw-uppercase">
+              descrição
+            </th>
+            <th className="tw-py-3 tw-px-4 tw-text-left tw-text-gray-700 tw-font-bold tw-uppercase">
+              ca
+            </th>
+            <th className="tw-py-3 tw-px-4 tw-text-left tw-text-gray-700 tw-font-bold tw-uppercase">
+              quantidade
+            </th>
+            <th className="tw-py-3 tw-px-4 tw-text-left tw-text-gray-700 tw-font-bold tw-uppercase">
+              motivo
+            </th>
+            <th className="tw-py-3 tw-px-4 tw-text-left tw-text-gray-700 tw-font-bold tw-uppercase">
+              setor
+            </th>
+            <th className="tw-py-3 tw-px-4 tw-text-left tw-text-gray-700 tw-font-bold tw-uppercase">
+              data/hora
+            </th>
           </tr>
         </thead>
 
