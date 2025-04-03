@@ -64,7 +64,11 @@ function TabelaTroca({
   }
 
   return (
-    <div>
+
+
+
+    
+    <div class="bg-blue-500 text-white text-3xl ">
       <h2>Lista de Trocas de EPI</h2>
 
       {/* 🔹 Inputs para selecionar datas */}
