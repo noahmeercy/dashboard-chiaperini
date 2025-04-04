@@ -11,6 +11,7 @@ function TabelaTroca({
   const [dataInicio, setDataInicio] = useState("");
   const [dataFim, setDataFim] = useState("");
   const [filtrando, setFiltrando] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
 
   //  Carrega as trocas sempre que `refreshSignal` mudar
   useEffect(() => {
@@ -64,108 +65,147 @@ function TabelaTroca({
   }
 
   return (
-    <div>
-      <h2>Lista de Trocas de EPI</h2>
 
-      {/* 🔹 Inputs para selecionar datas */}
-      {exibirFiltros && (
-        <>
-          <label>
-            Data Início:
-            <input
-              className="tw-mr-2 tw-bg-gray-200 tw-p-2 tw-rounded"
-              type="date"
-              value={dataInicio}
-              onChange={(e) => setDataInicio(e.target.value)}
-            />
-          </label>
+    <div className="tw-h-screen tw-flex tw-justify-center tw-items-start tw-py-8">
+      <div className="tw-p-4 tw-w-full max-w-5x1">
+        {/* 🔹 Título da tabela */}
+        <h2 className="tw-text-2x1 tw-font-bold tw-mb-4 tw-text-center tw-uppercase">
+          Lista de Trocas de EPI
+        </h2>
 
-          <label>
-            Data Fim:
-            <input
-              type="date"
-              value={dataFim}
-              onChange={(e) => setDataFim(e.target.value)}
-            />
-          </label>
+        {/* 🔹 Botão para exibir/ocultar filtros */}
+        {exibirFiltros && (
+          <div className="tw-mb-4">
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              className="tw-bg-blue-500 hover:tw-bg-blue-600 tw-text-white tw-py-2 tw-px-4 tw-rounded"
+            >
+              {showFilters ? "Ocultar Filtros" : "Mostrar Filtros"}
+            </button>
 
-          {/* 🔍 Botão "Consultar" */}
-          <button
-            onClick={() => {
-              setFiltrando(true);
-              loadTrocas();
-            }}
-          >
-            Consultar
-          </button>
-        </>
-      )}
+            {/* Flyout dos filtros */}
+            <div
+              className={`tw-overflow-hidden tw-bg-gray-100 tw-shadow-lg tw-rounded tw-p-4 tw-mt-2 tw-transition-all tw-duration-1000 ${
+                showFilters
+                  ? "tw-max-h-[200px] tw-opacity-100"
+                  : "tw-max-h-0 tw-opacity-0 tw-pointer-events-none"
+              }`}
+            >
+              <label className="tw-mr-4">
+                Data Início:
+                <input
+                  className="tw-bg-gray-200 tw-p-2 tw-rounded tw-ml-2"
+                  type="date"
+                  value={dataInicio}
+                  onChange={(e) => setDataInicio(e.target.value)}
+                />
+              </label>
 
-      <table>
-        <thead>
-          <tr>
-            <th className="tw-py-3 tw-px-4 tw-text-left tw-text-gray-700 tw-font-bold tw-uppercase">
-              registro
-            </th>
-            <th className="tw-py-3 tw-px-4 tw-text-left tw-text-gray-700 tw-font-bold tw-uppercase">
-              nome
-            </th>
-            <th className="tw-py-3 tw-px-4 tw-text-left tw-text-gray-700 tw-font-bold tw-uppercase">
-              descrição
-            </th>
-            <th className="tw-py-3 tw-px-4 tw-text-left tw-text-gray-700 tw-font-bold tw-uppercase">
-              ca
-            </th>
-            <th className="tw-py-3 tw-px-4 tw-text-left tw-text-gray-700 tw-font-bold tw-uppercase">
-              quantidade
-            </th>
-            <th className="tw-py-3 tw-px-4 tw-text-left tw-text-gray-700 tw-font-bold tw-uppercase">
-              motivo
-            </th>
-            <th className="tw-py-3 tw-px-4 tw-text-left tw-text-gray-700 tw-font-bold tw-uppercase">
-              setor
-            </th>
-            <th className="tw-py-3 tw-px-4 tw-text-left tw-text-gray-700 tw-font-bold tw-uppercase">
-              data/hora
-            </th>
-          </tr>
-        </thead>
+              <label className="tw-mr-4">
+                Data Fim:
+                <input
+                  className="tw-bg-gray-200 tw-p-2 tw-rounded tw-ml-2"
+                  type="date"
+                  value={dataFim}
+                  onChange={(e) => setDataFim(e.target.value)}
+                />
+              </label>
 
-        <tbody>
-          {allTabela.length > 0 ? (
-            allTabela.map((user) => (
-              <tr key={user.id}>
-                <td>{user.funcionario?.registro}</td>
-                <td>{user.funcionario?.nome || "Nome não disponível"}</td>
-                <td>{user.epi?.descricao}</td>
-                <td>{user.epi?.ca}</td>
-                <td>{user.quantidade}</td>
-                <td>{user.motivo}</td>
-                <td>{user.funcionario?.setor}</td>
-                <td>
-                  {new Date(user.dataTroca).toLocaleString("pt-BR", {
-                    day: "2-digit",
-                    month: "2-digit",
-                    year: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit",
-                  })}
-                </td>
-                <td>
-                  <button onClick={() => deleteTrocas(user.id)}>
-                    <img width="30px" src={Trash} alt="Ícone de Lixeira" />
-                  </button>
-                </td>
+              {/* 🔍 Botão "Consultar" */}
+              <button
+                onClick={() => {
+                  setFiltrando(true);
+                  loadTrocas();
+                }}
+                className="tw-bg-blue-500 hover:tw-bg-blue-600 tw-text-white tw-py-2 tw-px-4 tw-rounded"
+              >
+                Consultar
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Tabela */}
+        <div className="tw-overflow-x-auto">
+          <table className="tw-border tw-border-gray-300 tw-text-center tw-table-fixed">
+            <thead>
+              <tr className="tw-bg-gray-200">
+                <th className="tw-py-3 tw-px-4 tw-texte-center tw-text-gray-700 tw-font-bold tw-uppercase">
+                  funcionário
+                </th>
+                <th className="tw-py-3 tw-px-4 tw-texte-center tw-text-gray-700 tw-font-bold tw-uppercase">
+                  epi
+                </th>
+                <th className="tw-py-3 tw-px-4 tw-texte-center tw-text-gray-700 tw-font-bold tw-uppercase">
+                  descrição
+                </th>
+                <th className="tw-py-3 tw-px-4 tw-texte-center tw-text-gray-700 tw-font-bold tw-uppercase">
+                  ca
+                </th>
+                <th className="tw-py-3 tw-px-4 tw-texte-center tw-text-gray-700 tw-font-bold tw-uppercase">
+                  quantidade
+                </th>
+                <th className="tw-py-3 tw-px-4 tw-texte-center tw-text-gray-700 tw-font-bold tw-uppercase">
+                  motivo
+                </th>
+                <th className="tw-py-3 tw-px-4 tw-texte-center tw-text-gray-700 tw-font-bold tw-uppercase">
+                  setor
+                </th>
+                <th className="tw-py-3 tw-px-4 tw-texte-center tw-text-gray-700 tw-font-bold tw-uppercase tw-w-45">
+                  data/hora
+                </th>
+                <th className="tw-py-3 tw-px-4 tw-text-center tw-text-gray-700 tw-font-bold tw-uppercase">
+                  Ações
+                </th>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="9">Nenhuma troca registrada.</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            </thead>
+
+            <tbody>
+              {allTabela.length > 0 ? (
+                allTabela.map((user, index) => (
+                  <tr
+                    key={user.id}
+                    className={`tw-border-b ${
+                      index % 2 === 0 ? "tw-bg-gray-100" : "tw-bg-gray-200"
+                    }`}
+                  >
+                    <td className="tw-px-4">
+                      {user.funcionario?.nome || "Nome não disponível"}
+                    </td>
+                    <td className="tw-px-4">{user.epi?.descricao}</td>
+                    <td className="tw-px-4">{user.funcionario?.registro}</td>
+                    <td className="tw-px-4">{user.epi?.ca}</td>
+                    <td className="tw-px-4">{user.quantidade}</td>
+                    <td className="tw-px-4">{user.motivo}</td>
+                    <td className="tw-px-4">{user.funcionario?.setor}</td>
+                    <td className="tw-px-4">
+                      {new Date(user.dataTroca).toLocaleString("pt-BR", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                      })}
+                    </td>
+                    <td className="tw-px-4 tw-text-center">
+                      <button onClick={() => deleteTrocas(user.id)}>
+                        <img width="30px" src={Trash} alt="Ícone de Lixeira" />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="9" className="tw-py-3 tw-pw-4 tw-text-center">
+                    Nenhuma troca registrada.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }
