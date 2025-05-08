@@ -19,6 +19,7 @@ function CadastroEpi() {
         }
 
         try {
+    
             const response = await api.post('/private/cadastro-epi', epi)
             console.log('Funcionario cadastrado:', response.data)
             alert('EPI CADASTRADO COM SUCESSO!')
