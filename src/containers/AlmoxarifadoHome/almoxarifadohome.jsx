@@ -1,26 +1,22 @@
-import { Link } from 'react-router-dom'
-import './almoxarifadohome.css'
-
-
-
+import React from "react";
+import { Link } from "react-router-dom";
 
 function AlmoxarifadoHome() {
-    return (
-        <main className='container-dash'>
-            <div className='container-card'>
-                <div className='card red'>
-                    <h3 className='tip'>TESTE</h3>
-                    <p className="second-text">GERENCIAMENTO DE ESTOQUE</p>
-                </div>
-                <Link to={"/gerenciamento-epi"}>
-                    <div className='card blue'>
-                        <h3 className='tip'>EPI</h3>
-                        <p className="second-text">GERENCIAMENTO DE EPI</p>
-                    </div>
-                </Link>
-            </div>
-        </main>
-    )
+  return (
+    <main>
+        <h1 className="tw-flex tw-justify-center tw-text-2xl tw-font-bold tw-mb-4">
+          Dashboard Almoxarifado
+        </h1>
+        <div className="tw-mb-4">
+          <p>GERENCIAMENTO DE ESTOQUE</p>
+        </div>
+        <Link to={"/gerenciamento-epi"}>
+          <div>
+            <p>GERENCIAMENTO DE EPI</p>
+          </div> 
+        </Link>
+    </main>
+  );
 }
 
-export default AlmoxarifadoHome
+export default AlmoxarifadoHome;
