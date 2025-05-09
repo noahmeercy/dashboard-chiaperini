@@ -1,4 +1,4 @@
-import "./trocarepi.css";
+import React from 'react'
 import api from "../../../services/api";
 import { useState, useEffect } from "react";
 import TabelaTroca from "../../../componentes/TabelaTroca";
@@ -115,7 +115,7 @@ function trocarEpi() {
         <button type="submit">Registrar Troca</button>
       </form>
 
-      <TabelaTroca refreshSignal={refreshSignal} exibirFiltros={false} modoFiltro="telaPrincipal" />
+      {/* <TabelaTroca refreshSignal={refreshSignal} exibirFiltros={false} modoFiltro="telaPrincipal" /> */}
     </div>
   );
 }
